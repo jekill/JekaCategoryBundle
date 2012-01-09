@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+
+    <parameters>
+        <parameter key="jeka.category_manager.class">Jeka\CategoryBundle\Document\CategoryManager</parameter>
+        <parameter key="jeka.category.class">Jeka\CategoryBundle\Document\Category</parameter>
+    </parameters>
+
+    <services>
+        <service id="jeka.category_manager" class="%jeka.category_manager.class%">
+            <argument type="service" id="doctrine.odm.mongodb.default_document_manager" />
+            <argument>%jeka.category.class%</argument>
+        </service>
+    </services>
+</container>
