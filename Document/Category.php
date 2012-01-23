@@ -47,6 +47,11 @@ class Category{
      */
     private $position;
 
+    /**
+     * @MongoDb\Boolean
+     */
+    private $is_hidden;
+
 
     public function __construct()
     {
@@ -183,14 +188,36 @@ class Category{
         return $this->slug;
     }
 
-    public function hasChildren()
+    public function isDescentOf(Category $category)
     {
-
+        foreach($this->getAncestors() as $ancestor)
+        {
+            if ($ancestor->getId()==$category->getId())
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public function getChildren()
-    {
 
+    /**
+     * Set is_hidden
+     *
+     * @param boolean $isHidden
+     */
+    public function setIsHidden($isHidden)
+    {
+        $this->is_hidden = $isHidden;
     }
 
+    /**
+     * Get is_hidden
+     *
+     * @return boolean $isHidden
+     */
+    public function getIsHidden()
+    {
+        return $this->is_hidden;
+    }
 }

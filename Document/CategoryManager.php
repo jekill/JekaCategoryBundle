@@ -80,4 +80,12 @@ class CategoryManager implements CategoryManagerInterface
             ->execute();
 
     }
+
+    public function findDescendants($category)
+    {
+        return $this->repository->createQueryBuilder()
+            ->field('ancestors.id')->equals($category->getId())
+            ->getQuery()
+            ->execute();
+    }
 }
