@@ -141,7 +141,7 @@ class Category{
     /**
      * Get parent
      *
-     * @return Jeka\CategoryBundle\Document\Category $parent
+     * @return Jeka\CategoryBundle\Document\Category
      */
     public function getParent()
     {
@@ -220,4 +220,35 @@ class Category{
     {
         return $this->is_hidden;
     }
+
+    function __toString()
+    {
+        return $this->getName();
+    }
+
+    function getTreeLevel()
+    {
+        return count($this->ancestors);
+    }
+
+    /**
+     * @MongoDB\PrePersist
+     * @MongoDB\PreUpdate
+     */
+    function initAncestorsPath(){
+        $this->ancestors = new \Doctrine\Common\Collections\ArrayCollection();
+        if ($this->getParent())
+        {
+            foreach($this->getParent()->getAncestors() as $c)
+            {
+                $this->addAncestors($c);
+            }
+            //$this->ancestors = clone $this->getParent()->getAncestors();
+            $this->addAncestors($this->getParent());
+        }
+    }
+
+    //preUpdate
+
+
 }
