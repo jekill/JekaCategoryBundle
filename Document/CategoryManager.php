@@ -132,4 +132,10 @@ class CategoryManager implements CategoryManagerInterface
         }
         $this->flushManager();
     }
+
+    public function remove(Category $category)
+    {
+        $this->dm->remove($category);
+        $this->flushManager();
+    }
 }
