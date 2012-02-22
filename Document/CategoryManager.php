@@ -65,7 +65,8 @@ class CategoryManager implements CategoryManagerInterface
      */
     function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        // TODO: Implement findBy() method.
+        return $this->repository->findBy($criteria, $orderBy, $limit, $offset);
+
     }
 
     /**
@@ -124,10 +125,10 @@ class CategoryManager implements CategoryManagerInterface
     {
         $root = !$root ? $this->getRoot() : $root;
         $index = 0;
-        foreach($this->findChildren($root) as $child)
+        foreach ($this->findChildren($root) as $child)
         {
             $child->setPosition($index++);
-            $this->updateCategory($child,false);
+            $this->updateCategory($child, false);
             $this->normalizePositions($child);
         }
         $this->flushManager();
@@ -137,5 +138,10 @@ class CategoryManager implements CategoryManagerInterface
     {
         $this->dm->remove($category);
         $this->flushManager();
+    }
+
+    public function getRepository()
+    {
+        return $this->repository;
     }
 }
