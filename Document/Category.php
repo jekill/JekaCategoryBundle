@@ -18,6 +18,11 @@ class Category{
      * @MongoDB\String
      */
     private $name;
+    /**
+     * @MongoDB\Int
+     * @MongoDB\UniqueIndex
+     */
+    private $number;
 
     /**
      * @MongoDB\String
@@ -251,4 +256,26 @@ class Category{
     //preUpdate
 
 
+
+    /**
+     * Set number
+     *
+     * @param int $number
+     * @return Category
+     */
+    public function setNumber($number)
+    {
+        $this->number = $number;
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return int $number
+     */
+    public function getNumber()
+    {
+        return $this->number;
+    }
 }
