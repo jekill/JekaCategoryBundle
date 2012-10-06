@@ -20,7 +20,7 @@ class Category{
     private $name;
     /**
      * @MongoDB\Int
-     * @MongoDB\UniqueIndex
+     * @MongoDB\Index
      */
     private $number;
 
